@@ -1,13 +1,13 @@
 import * as core from '@actions/core';
 import * as azdev from "azure-devops-node-api";
-import { TaskParameters } from './task.parameters';
-import { PipelineNotFoundError } from './pipeline.error';
+import {TaskParameters} from './task.parameters';
+import {PipelineNotFoundError} from './pipeline.error';
 
 import * as ReleaseInterfaces from 'azure-devops-node-api/interfaces/ReleaseInterfaces';
 import * as BuildInterfaces from 'azure-devops-node-api/interfaces/BuildInterfaces';
-import { PipelineHelper as p } from './util/pipeline.helper';
-import { Logger as log } from './util/logger';
-import { UrlParser } from './util/url.parser';
+import {PipelineHelper as p} from './util/pipeline.helper';
+import {Logger as log} from './util/logger';
+import {UrlParser} from './util/url.parser';
 
 export class PipelineRunner {
     public taskParameters: TaskParameters;
@@ -82,6 +82,15 @@ export class PipelineRunner {
             core.debug("pipeline is not linked to same Github repo");
         }
 
+        // if branch name is defined in the github action
+        if (this.taskParameters.branchName) {
+            sourceBranch = `refs/heads/${this.taskParameters.branchName}`,
+                sourceVersion = undefined
+        }
+
+        let templateParameters = this.taskParameters.azureTemplateParameters ?
+            JSON.parse(this.taskParameters.azureTemplateParameters)
+            : undefined;
         let build: BuildInterfaces.Build = {
             definition: {
                 id: buildDefinition.id
@@ -92,7 +101,8 @@ export class PipelineRunner {
             sourceBranch: sourceBranch,
             sourceVersion: sourceVersion,
             reason: BuildInterfaces.BuildReason.Triggered,
-            parameters: this.taskParameters.azurePipelineVariables
+            parameters: this.taskParameters.azurePipelineVariables,
+            templateParameters: templateParameters
         } as BuildInterfaces.Build;
 
         log.LogPipelineTriggerInput(build);
