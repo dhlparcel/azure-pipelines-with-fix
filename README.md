@@ -10,16 +10,17 @@ The definition of this Github Action is in [action.yml](https://github.com/Azure
 
 ## Sample workflow 
 
-Use this action to trigger a specific pipeline (YAML or Classic Release Pipeline) in Azure DevOps account.
-Action takes Project URl, pipeline name and a [Personal Access Token (PAT)](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops) for your DevOps account.
+Use this action to trigger a specific pipeline (YAML or Classic Release Pipeline) in an Azure DevOps organization.
+Action takes Project URL, pipeline name and a [Personal Access Token (PAT)](https://docs.microsoft.com/en-us/azure/devops/organizations/accounts/use-personal-access-tokens-to-authenticate?view=azure-devops) for your DevOps account.
 
 ```yaml
 - uses: Azure/pipelines@v1
   with:
     azure-devops-project-url: 'https://dev.azure.com/organization/project-name'
-    azure-pipeline-name: 'pipeline-name' # name of the Azure pipeline to be triggered, required
-    azure-devops-token: '${{ secrets.AZURE_DEVOPS_TOKEN }}' # required field
+    azure-pipeline-name: 'pipeline-name' # name of the Azure pipeline to be triggered
+    azure-devops-token: '${{ secrets.AZURE_DEVOPS_TOKEN }}'
     azure-pipeline-variables:  '{"variable1": "value1", "variable2": "value2"}' # optional stringified json
+    azure-template-parameters: '{"variable1": "value1", "variable2": "value2"}' # optional stringified json
 ```
 
 # Contributing
