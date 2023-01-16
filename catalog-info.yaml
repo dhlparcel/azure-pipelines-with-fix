@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: azure-pipelines-with-fix
+  description: Fork of https://github.com/jacopocarlini/azure-pipelines, which contains fix for pipeline parameters not being sent correctly.
+  annotations: 
+    github.com/project-slug: dhlparcel/azure-pipelines-with-fix
+    backstage.io/techdocs-ref: dir:.
+    
+  tags:
+    - Typescript
+    - Javascript
+    
+spec:
+  type: component
+  lifecycle: production
+  owner: admins
