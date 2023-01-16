@@ -1,0 +1,10 @@
+site_name: azure-pipelines-with-fix Documentation
+
+repo_url: https://github.com/dhlparcel/azure-pipelines-with-fix
+edit_uri: blob/main/docs/
+
+nav:
+    - Home: index.md
+
+plugins:
+  - techdocs-core
